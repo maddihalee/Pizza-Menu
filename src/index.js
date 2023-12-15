@@ -46,18 +46,55 @@ const pizzaData = [
   },
 ];
 
-
 function App() {
   return (
     <>
-      <h1>Hello React!</h1> 
-      <Pizza />
+      <Header />
+      <Menu />
+      <Footer />
     </>
   );
 }
 
-function Pizza() {
-  return <h2>Pizza</h2>;
+function Header() {
+  return <h1>Fast React Pizza Co.</h1>;
+}
+
+function Menu() {
+  return (
+    <div>
+      <h2>Our menu</h2>
+
+      <div>
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name}/>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.warn(isOpen);
+
+  return (
+    <footer>{new Date().toLocaleTimeString()}We're currently open!</footer>
+  );
+}
+
+function Pizza(props) {
+  return (
+    <div>
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <h3>{props.pizzaObj.name}</h3>
+      <p>{props.pizzaObj.ingredients}</p>
+      <p>{props.pizzaObj.price}</p>
+    </div>
+  );
 }
 
 // React v18
